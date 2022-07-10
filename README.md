@@ -1,15 +1,16 @@
 # global-wasmcloud
 Experimenting with wasmCloud and NGS
 
-Generate `.env` file: <br/>
+## NGS Credentials
+After setting up NGS, copy the credentials file into a file named `ngs.creds` in the creds directory.
+The same `ngs.creds` file needs to be on both machines running the nats server.
 
+## Generate `.env` file: <br/>
 ***Warning***: This will overwrite the `.env` file. <br/>
 ***Warning***: Once the `.env` file is created, do not share it because it 
 contains sensitive information. 
 ```bash
-export JS_DOMAIN=core
-echo "JS_DOMAIN=$JS_DOMAIN" > .env
-echo "WASMCLOUD_JS_DOMAIN=$JS_DOMAIN" >> .env
+echo "JS_DOMAIN=core" > .env
 echo "WASMCLOUD_CLUSTER_SEED=$(wash keys gen cluster -o json | jq -r '.seed')" >> .env
 ```
 
