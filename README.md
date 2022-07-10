@@ -8,6 +8,7 @@ Generate `WASMCLOUD_CLUSTER_SEED` and place in .env file: <br/>
 contains sensitive information. 
 ```bash
 export JS_DOMAIN=core
+echo "NGS_ACCOUNT_NAME=byblakeorriver"
 echo "JS_DOMAIN=$JS_DOMAIN" > .env
 echo "WASMCLOUD_JS_DOMAIN=$JS_DOMAIN" >> .env
 echo "WASMCLOUD_CLUSTER_SEED=$(wash keys gen cluster -o json | jq -r '.seed')" >> .env

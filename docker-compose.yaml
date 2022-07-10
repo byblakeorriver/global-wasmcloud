@@ -13,7 +13,7 @@ services:
     command: [ "-js" , "-c", "/etc/nats/nats.cfg" ]
     volumes:
       - ./config/:/etc/nats
-      - $HOME/.local/share/nats/nsc/keys/creds/synadia/$USER/default.creds:/default.creds
+      - $HOME/.local/share/nats/nsc/keys/creds/synadia/$NGS_ACCOUNT_NAME/default.creds:/default.creds
 
   registry:
     image: registry:2.7
