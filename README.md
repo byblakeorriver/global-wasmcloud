@@ -1,14 +1,13 @@
 # global-wasmcloud
 Experimenting with wasmCloud and NGS
 
-Generate `WASMCLOUD_CLUSTER_SEED` and place in .env file: <br/>
+Generate `.env` file: <br/>
 
-***Warning***: This will overwrite the .env file. <br/>
+***Warning***: This will overwrite the `.env` file. <br/>
 ***Warning***: Once the `.env` file is created, do not share it because it 
 contains sensitive information. 
 ```bash
 export JS_DOMAIN=core
-echo "NGS_ACCOUNT_NAME=byblakeorriver"
 echo "JS_DOMAIN=$JS_DOMAIN" > .env
 echo "WASMCLOUD_JS_DOMAIN=$JS_DOMAIN" >> .env
 echo "WASMCLOUD_CLUSTER_SEED=$(wash keys gen cluster -o json | jq -r '.seed')" >> .env
