@@ -15,16 +15,11 @@ services:
       - ./config/:/etc/nats
       - ./creds/:/creds
 
-  registry:
-    image: registry:2.7
-    ports:
-      - "5000:5000"
-
   wasmcloud:
     image: wasmcloud/wasmcloud_host:latest
     environment:
       WASMCLOUD_CLUSTER_SEED: ${WASMCLOUD_CLUSTER_SEED}
-      WASMCLOUD_JS_DOMAIN: ${JS_DOMAIN}
+      WASMCLOUD_JS_DOMAIN: ${WASMCLOUD_JS_DOMAIN}
       HOST_machine: ${HOST_MACHINE_NAME}
     ports:
       - "4000:4000"

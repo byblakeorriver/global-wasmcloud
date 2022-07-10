@@ -11,10 +11,12 @@ The same `ngs.creds` file needs to be on both machines running the nats server.
 contains sensitive information. 
 ```bash
 echo "JS_DOMAIN=core" > .env
+echo "WASMCLOUD_JS_DOMAIN=core" >> .env
 echo "WASMCLOUD_CLUSTER_SEED=$(wash keys gen cluster -o json | jq -r '.seed')" >> .env
 ```
-
 The `.env` file needs to be on both machines running the wasmcloud host in the same directory as the `docker-compose.yaml`.
+Once the `.env` file is on the second machine change the `JS_DOMAIN` to `extender`.
+Do not change the `WASMCLOUD_JS_DOMAIN`.
 
 ## Run on machine 1
 To start nats and wasmCloud servers:
