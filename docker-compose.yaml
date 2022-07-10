@@ -1,32 +1,19 @@
-# This docker-compose file loads
-#   nats with JetStream enabled
-#   a local OCI registry
-#   redis (for the kvredis capability provider)
-#   wasmcloud_host
-
 version: "3"
+
 services:
+
   nats:
     image: nats:2.7.2-alpine
+    environment:
+      JS_DOMAIN: ${JS_DOMAIN}
     ports:
       - "4222:4222"
       - "6222:6222"
       - "8222:8222"
-    command: [ "-js" , "-c", "/etc/nats/nats_core.cfg" ]
+    command: [ "-js" , "-c", "/etc/nats/nats.cfg" ]
     volumes:
       - ./config/:/etc/nats
-      - /home/byblakeorriver/.local/share/nats/nsc/keys/creds/synadia/byblakeorriver/default.creds:/default.creds
-
-#  nats:
-#    image: nats:2.7.2-alpine
-#    ports:
-#      - "4222:4222"
-#      - "6222:6222"
-#      - "8222:8222"
-#    command: [ "-js -c /etc/nats/nats_extender.cfg" ]
-#    volumes:
-#      - ./config/:/etc/nats
-#      - /home/bwilloughby/.local/share/nats/nsc/keys/creds/synadia/byblakeorriver/default.creds:/default.creds
+      - $HOME/.local/share/nats/nsc/keys/creds/synadia/$USER/default.creds:/default.creds
 
   registry:
     image: registry:2.7
@@ -36,10 +23,9 @@ services:
   wasmcloud:
     image: wasmcloud/wasmcloud_host:latest
     environment:
-      WASMCLOUD_RPC_HOST: nats
-      WASMCLOUD_CTL_HOST: nats
-      WASMCLOUD_PROV_RPC_HOST: nats
-      WASMCLOUD_JS_DOMAIN: core
+      WASMCLOUD_CLUSTER_SEED: ${WASMCLOUD_CLUSTER_SEED}
+      WASMCLOUD_JS_DOMAIN: ${JS_DOMAIN}
+      HOST_machine: ${HOST_MACHINE_NAME}
     ports:
       - "4000:4000"
       - "8080-8089:8080-8089" # Allows exposing examples on ports 8080-8089
