@@ -5,7 +5,7 @@ Experimenting with wasmCloud and NGS
 After setting up NGS, copy the credentials file into a file named `ngs.creds` in the creds directory.
 The same `ngs.creds` file needs to be on both machines running the nats server.
 
-## Generate `.env` file: <br/>
+## Generate `.env` file:
 ***Warning***: This will overwrite the `.env` file. <br/>
 ***Warning***: Once the `.env` file is created, do not share it because it 
 contains sensitive information. 
