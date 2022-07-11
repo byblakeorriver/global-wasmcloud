@@ -44,4 +44,21 @@ docker-compose up
 # The constraint flag ensures we start on a host with that label
 wash ctl start actor wasmcloud.azurecr.io/dogs-and-cats:0.1.0 --constraint machine_name=machine_2
 wash ctl start provider wasmcloud.azurecr.io/httpclient:0.4.0 --constraint machine_name=machine_2
+wash ctl start provider wasmcloud.azurecr.io/httpserver:0.15.0 --constraint machine_name=machine_2
 ```
+
+## Verify fail-over works
+First get host id of machine 2:
+```bash
+wash ctl get hosts
+```
+Get dog and cats actor id from machine 2:
+```bash
+wash ctl get inventory ${HOST_ID}
+```
+Stop actor:
+```bash
+wash ctl stop actor ${HOST_ID} ${ACTOR_ID}
+```
+
+Now if you can access localhost:8081 from `machine_2` you know that the fail-over worked.
