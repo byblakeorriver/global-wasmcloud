@@ -5,7 +5,7 @@ services:
   nats:
     image: nats:2.7.2-alpine
     environment:
-      JS_DOMAIN: ${JS_DOMAIN}
+      - JS_DOMAIN
     ports:
       - "4222:4222"
       - "6222:6222"
@@ -18,9 +18,9 @@ services:
   wasmcloud:
     image: wasmcloud/wasmcloud_host:latest
     environment:
-      WASMCLOUD_CLUSTER_SEED: ${WASMCLOUD_CLUSTER_SEED}
-      WASMCLOUD_JS_DOMAIN: ${WASMCLOUD_JS_DOMAIN}
-      HOST_machine: ${HOST_MACHINE_NAME}
+      - WASMCLOUD_CLUSTER_SEED
+      - WASMCLOUD_JS_DOMAIN
+      - HOST_MACHINE_NAME
     ports:
       - "4000:4000"
       - "8080-8089:8080-8089" # Allows exposing examples on ports 8080-8089

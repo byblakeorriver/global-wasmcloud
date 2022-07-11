@@ -12,16 +12,17 @@ contains sensitive information.
 ```bash
 echo "JS_DOMAIN=core" > .env
 echo "WASMCLOUD_JS_DOMAIN=core" >> .env
+echo "HOST_MACHINE_NAME=machine_1" >> .env
 echo "WASMCLOUD_CLUSTER_SEED=$(wash keys gen cluster -o json | jq -r '.seed')" >> .env
 ```
 The `.env` file needs to be on both machines running the wasmcloud host in the same directory as the `docker-compose.yaml`.
-Once the `.env` file is on the second machine change the `JS_DOMAIN` to `extender`.
+Once the `.env` file is on the second machine change the `JS_DOMAIN` to `extender` and `HOST_MACHINE_NAME` to `machine_2`.
 Do not change the `WASMCLOUD_JS_DOMAIN`.
 
 ## Run on machine 1
 To start nats and wasmCloud servers:
 ```bash
-HOST_MACHINE_NAME=machine_1 docker-compose up
+docker-compose up
 ```
 To deploy the actors and capability providers to the wasmCloud host:
 ```bash
@@ -35,12 +36,12 @@ wash ctl start provider wasmcloud.azurecr.io/httpclient:0.4.0
 ## Run on machine 2
 To start nats and wasmCloud servers:
 ```bash
-HOST_MACHINE_NAME=machine_2 docker-compose up
+docker-compose up
 ```
 
 ## Run on machine 1 or 2
 ```bash
 # The constraint flag ensures we start on a host with that label
-wash ctl start actor wasmcloud.azurecr.io/dogs-and-cats:0.1.0 --constraint machine=machine_2
-wash ctl start provider wasmcloud.azurecr.io/httpclient:0.4.0 --constraint machine=machine_2
+wash ctl start actor wasmcloud.azurecr.io/dogs-and-cats:0.1.0 --constraint machine_name=machine_2
+wash ctl start provider wasmcloud.azurecr.io/httpclient:0.4.0 --constraint machine_name=machine_2
 ```
